@@ -21,15 +21,18 @@ import AddIcon from '@material-ui/icons/Add';
 import AddColumnIcon from '@material-ui/icons/Apps';
 import Typography from '@material-ui/core/Typography';
 import BoardColumn from './components/board-column';
-import AddDialogForm from './components/add-dialog';
+import AddDialogForm from './components/add-task-dialog';
 import TaskDetailsModal from './components/task-details-modal';
+import AddColumnDialog from './components/add-column-dialog';
 import {sideMenuButtonsName, sideMenuButtons} from './constants';
+import { addColumn } from "./actions";
 import styles from "./styles";
 
 class TaskBoard extends PureComponent {
     state = {
         isDrawerOpen: false,
         isAddDialogFormOpen: false,
+        isAddColumnDialogOpen: false,
         task: null,
     };
 
@@ -49,6 +52,12 @@ class TaskBoard extends PureComponent {
                     isAddDialogFormOpen: true,
                 })
             }
+          case sideMenuButtonsName.addColumn: {
+            return this.setState({
+                  isDrawerOpen: false,
+                  isAddColumnDialogOpen: true,
+            })
+          }
         }
     };
 
@@ -94,6 +103,17 @@ class TaskBoard extends PureComponent {
         <AddDialogForm
             isOpen={this.state.isAddDialogFormOpen}
             handleClose={() => this.setState({isAddDialogFormOpen: false})}
+        />
+    );
+
+    renderAddColumnDialog = () => (
+        <AddColumnDialog
+          handleClose={() => this.setState({isAddColumnDialogOpen: false})}
+          onSubmitAddColumn={(columnName) => {
+            this.setState({isAddColumnDialogOpen: false});
+            this.props.addColumn(columnName);
+          }}
+          isOpen={this.state.isAddColumnDialogOpen}
         />
     );
 
@@ -181,6 +201,7 @@ class TaskBoard extends PureComponent {
                     {this.renderContent(classes)}
                 </div>
                 {this.renderAddDialogForm()}
+                {this.renderAddColumnDialog()}
                 {task
                     ? this.renderTaskDetailsModal()
                     : null
@@ -199,7 +220,9 @@ const connectToState = connect(
        priorities: state.board.priorities,
        tasks: state.board.tasks,
     }),
-    null,
+  {
+      addColumn
+  }
 );
 
 const stylesComponent = withStyles(styles, { withTheme: true })(TaskBoard);
