@@ -161,7 +161,9 @@ AddDialogForm.propTypes = {
 const stylesComponent = withStyles(styles)(AddDialogForm);
 export default connect(
     state => ({
-        priorities: state.board.priorities,
+        priorities: state.boards.boardsList
+            .find(board => board.id === state.boards.selectedBoardId)
+            .priorities,
     }),
     {
         addTask,
