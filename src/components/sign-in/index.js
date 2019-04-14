@@ -101,11 +101,13 @@ SignIn.propTypes = {
     signIn: PropTypes.func.isRequired,
 };
 
+const mapStateToProps = state => ({
+    isInProgress: state.app.isInProgress,
+});
+
 export default withRouter(
     connect(
-        state => ({
-           isInProgress: state.app.isInProgress,
-        }),
+        mapStateToProps,
         {
             signIn
         }
