@@ -1,6 +1,7 @@
 import React, {PureComponent, Fragment} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import {compose} from "redux";
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -29,6 +30,11 @@ import { addColumn } from "./actions";
 import styles from "./styles";
 
 class TaskBoard extends PureComponent {
+    static propTypes = {
+        classes: PropTypes.object.isRequired,
+        board: PropTypes.object.isRequired,
+    };
+
     state = {
         isDrawerOpen: false,
         isAddDialogFormOpen: false,
@@ -64,7 +70,7 @@ class TaskBoard extends PureComponent {
     onTaskClick = (id) => {
         this.setState({
             isDrawerOpen: false,
-            task: this.props.tasks.find(task => task.id === id),
+            task: this.props.board.tasks.find(task => task.id === id),
         });
     };
 
@@ -118,7 +124,7 @@ class TaskBoard extends PureComponent {
     );
 
     renderPanel = (panelTitle) => {
-        const columnTasks = this.props.tasks.filter(task => task.priority === panelTitle);
+        const columnTasks = this.props.board.tasks.filter(task => task.priority === panelTitle);
         return (
             <BoardColumn
                 tasks={columnTasks}
@@ -137,7 +143,7 @@ class TaskBoard extends PureComponent {
         >
             <div className={classes.drawerHeader} />
             <div className={classes.content}>
-                {this.props.priorities
+                {this.props.board.priorities
                     .map(columnTitle => this.renderPanel(columnTitle))
                 }
             </div>
@@ -210,21 +216,18 @@ class TaskBoard extends PureComponent {
         )
     }
 }
+const mapStateToProps = state => ({
+    board: state.boards.boardsList.find(board => state.boards.selectedBoardId === board.id),
+});
 
-TaskBoard.propTypes = {
-    classes: PropTypes.object.isRequired,
-}
+const mapDispatchToProps = {addColumn};
 
 const connectToState = connect(
-    state => ({
-       priorities: state.board.priorities,
-       tasks: state.board.tasks,
-    }),
-  {
-      addColumn
-  }
+    mapStateToProps,
+    mapDispatchToProps
 );
 
-const stylesComponent = withStyles(styles, { withTheme: true })(TaskBoard);
-
-export default connectToState(stylesComponent);
+export default compose(
+    withStyles(styles, { withTheme: true }),
+    connectToState
+)(TaskBoard)
