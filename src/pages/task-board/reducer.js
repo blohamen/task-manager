@@ -51,8 +51,8 @@ const mock = {
 
 const initialState = {
   isFetching: false,
-  boardsList: null,
-  selectedBoardId: null,
+  boardsList: mock.boardsList,
+  selectedBoardId: '228',
 };
 
 const addPropertyToBoard = (board, property, path) => {

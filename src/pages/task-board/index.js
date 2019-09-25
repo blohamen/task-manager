@@ -137,9 +137,7 @@ class TaskBoard extends PureComponent {
 
     renderContent = (classes) => (
         <main
-            className={classNames(classes.contentContainer, {
-                [classes.contentShift]: this.state.isDrawerOpen,
-            })}
+            className={classes.contentContainer}
         >
             <div className={classes.drawerHeader} />
             <div className={classes.content}>
@@ -153,7 +151,6 @@ class TaskBoard extends PureComponent {
     renderDrawer = (classes, theme) => (
         <Drawer
             className={classes.drawer}
-            variant="persistent"
             anchor="left"
             open={this.state.isDrawerOpen}
             classes={{
@@ -175,9 +172,7 @@ class TaskBoard extends PureComponent {
     renderAppBar = (classes, isDrawerOpen) => (
         <AppBar
             position="fixed"
-            className={classNames(classes.appBar, {
-                [classes.appBarShift]: isDrawerOpen,
-            })}
+            className={classes.appBar}
         >
             <Toolbar disableGutters={!isDrawerOpen}>
                 <IconButton

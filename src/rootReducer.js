@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
-import { appReducer } from './pages/sign-in/reducer';
+import { appReducer } from './pages/sign-in/store/reducer';
 import boardsReducer from './pages/task-board/reducer';
 
 export default history => combineReducers({

@@ -8,6 +8,7 @@ import rootSaga from './rootSaga';
 
 export const history = createBrowserHistory();
 const sagaMiddleware = createSagaMiddleware();
+
 export const store = createStore(
   createRootReducer(history),
   applyMiddleware(

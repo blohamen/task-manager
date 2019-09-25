@@ -1,11 +1,10 @@
-import React, { PureComponent } from 'react';
+import React, { useState } from 'react';
 import {compose} from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Input from '@material-ui/core/Input';
@@ -14,34 +13,31 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
-import {signIn} from "./actions";
+import {signIn} from "./store/actions";
 import styles from './styles';
 
-class SignIn extends PureComponent {
-    state = {
-        email: '',
-        password: '',
+function SignIn({classes, isInProgress, signIn}) {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleSubmitForm = (event) => {
+        event.preventDefault();
+        signIn({
+            email,
+            password
+        })
     };
 
-    handleFormInputChange = ({target: {value}}, type) => {
-        this.setState({[type]: value});
-    };
-
-    renderForm = (classes) => (
+    const renderForm = () => (
         <form
             className={classes.form}
-            onSubmit={(event) => {
-                event.preventDefault();
-                this.props.signIn({
-                    email: this.state.email,
-                    password: this.state.password,
-                })
-            }}>
+            onSubmit={handleSubmitForm}
+        >
             <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="email">Email Address</InputLabel>
                 <Input
-                    onChange={(event) => this.handleFormInputChange(event, 'email')}
-                    value={this.state.email}
+                    onChange={({target: {value}}) => setEmail(value)}
+                    value={email}
                     id="email"
                     name="email"
                     autoComplete="email"
@@ -51,8 +47,8 @@ class SignIn extends PureComponent {
             <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="password">Password</InputLabel>
                 <Input
-                    onChange={(event) => this.handleFormInputChange(event, 'password')}
-                    value={this.state.password}
+                    onChange={({target: {value}}) => setPassword(value)}
+                    value={password}
                     name="password"
                     type="password"
                     id="password"
@@ -71,29 +67,26 @@ class SignIn extends PureComponent {
         </form>
     );
 
-    render() {
-        const {classes, isInProgress} = this.props;
-        return (
-            <main className={classes.main}>
-                <CssBaseline />
-                <Paper className={classes.paper}>
-                    <Avatar className={classes.avatar}>
-                        <LockOutlinedIcon />
-                    </Avatar>
-                    <Typography component="h1" variant="h5">
-                        Sign in
-                    </Typography>
-                    {!isInProgress
-                        ? this.renderForm(classes)
-                        : <CircularProgress
-                            className={classes.spinner}
-                            size={30}
-                            thickness={5}
-                        />  }
-                </Paper>
-            </main>
-        );
-    }
+    return (
+        <main className={classes.main}>
+            <Paper className={classes.paper}>
+                <Avatar className={classes.avatar}>
+                    <LockOutlinedIcon />
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                    Sign in
+                </Typography>
+                {!isInProgress
+                    ? renderForm()
+                    : <CircularProgress
+                        className={classes.spinner}
+                        size={30}
+                        thickness={5}
+                    />
+                }
+            </Paper>
+        </main>
+    )
 }
 
 SignIn.propTypes = {
