@@ -20,18 +20,26 @@ function TaskDetailsModal({ classes, task, handleClose }) {
             <DialogTitle id="dialog-title">Task details</DialogTitle>
             <DialogContent className={classes.dialogContent}>
                 <Typography color="textPrimary" gutterBottom>
-                    Name: {task.name}
+                    Name:
+                    {' '}
+                    {task.name}
                 </Typography>
 
                 <Typography color="textPrimary" gutterBottom>
-                    Reporter: {task.reporter}
+                    Reporter:
+                    {' '}
+                    {task.reporter}
                 </Typography>
 
                 <Typography color="textPrimary" gutterBottom>
-                    Assigned to: {task.assignedTo}
+                    Assigned to:
+                    {' '}
+                    {task.assignedTo}
                 </Typography>
                 <Typography color="textPrimary" gutterBottom>
-                    Priority: {task.priority}
+                    Priority:
+                    {' '}
+                    {task.priority}
                 </Typography>
                 <Typography color="textPrimary" gutterBottom>
                     Description:
@@ -43,13 +51,13 @@ function TaskDetailsModal({ classes, task, handleClose }) {
                 </DialogContentText>
             </DialogContent>
         </Dialog>
-    )
+    );
 }
 
 TaskDetailsModal.propTypes = {
     classes: PropTypes.object.isRequired,
     task: PropTypes.object.isRequired,
     handleClose: PropTypes.func.isRequired,
-}
+};
 
 export default withStyles(styles)(TaskDetailsModal);

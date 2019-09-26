@@ -1,5 +1,5 @@
 import { handleActions } from 'redux-actions';
-import {SIGN_IN, SIGN_IN_SUCCESS} from "./actions";
+import { SIGN_IN, SIGN_IN_SUCCESS } from './actions';
 
 const initialState = {
     token: null,
@@ -8,7 +8,7 @@ const initialState = {
 };
 
 export const appReducer = handleActions({
-    [SIGN_IN]: state => ({
+    [SIGN_IN]: (state) => ({
         ...state,
         isInProgress: true,
     }),
@@ -17,5 +17,5 @@ export const appReducer = handleActions({
         token: payload.token,
         isInProgress: false,
         isLoginRequired: false,
-    })
+    }),
 }, initialState);

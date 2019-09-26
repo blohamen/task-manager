@@ -6,19 +6,25 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
 
-function TaskCard({name, assigned, classes, onCardClick}) {
+function TaskCard({
+    name, assigned, classes, onCardClick,
+}) {
     return (
         <Card className={classes.taskCard} onClick={onCardClick}>
             <CardContent className={classes.cardContent}>
                 <Typography color="textPrimary">
-                    Task name: {name}
+                    Task name:
+                    {' '}
+                    {name}
                 </Typography>
                 <Typography className={classes.assignedText} color="textSecondary">
-                    Assigned to: {assigned}
+                    Assigned to:
+                    {' '}
+                    {assigned}
                 </Typography>
             </CardContent>
         </Card>
-    )
+    );
 }
 
 TaskCard.propTypes = {

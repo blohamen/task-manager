@@ -16,6 +16,6 @@ export default function (theme) {
         },
         assignedText: {
             alignSelf: 'flex-end',
-        }
-    }
+        },
+    };
 }

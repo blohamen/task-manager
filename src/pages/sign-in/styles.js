@@ -33,5 +33,5 @@ export default function (theme) {
         submit: {
             marginTop: theme.spacing.unit * 3,
         },
-    }
+    };
 }

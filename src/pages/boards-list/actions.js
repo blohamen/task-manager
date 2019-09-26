@@ -1,4 +1,4 @@
-import {createAction} from 'redux-actions';
+import { createAction } from 'redux-actions';
 
 export const SELECT_BOARD = 'SELECT_BOARD';
 export const FETCH_BOARDS = 'FETCH_BOARDS';

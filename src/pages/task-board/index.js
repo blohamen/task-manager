@@ -1,7 +1,7 @@
-import React, {PureComponent, Fragment} from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {compose} from "redux";
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -25,9 +25,9 @@ import BoardColumn from './components/board-column';
 import AddDialogForm from './components/add-task-dialog';
 import TaskDetailsModal from './components/task-details-modal';
 import AddColumnDialog from './components/add-column-dialog';
-import {sideMenuButtonsName, sideMenuButtons} from './constants';
-import { addColumn } from "./actions";
-import styles from "./styles";
+import { sideMenuButtonsName, sideMenuButtons } from './constants';
+import { addColumn } from './actions';
+import styles from './styles';
 
 class TaskBoard extends PureComponent {
     static propTypes = {
@@ -52,40 +52,40 @@ class TaskBoard extends PureComponent {
 
     onPanelButtonPress = (text) => {
         switch (text) {
-            case sideMenuButtonsName.addTask: {
-               return this.setState({
-                    isDrawerOpen: false,
-                    isAddDialogFormOpen: true,
-                })
-            }
-          case sideMenuButtonsName.addColumn: {
+        case sideMenuButtonsName.addTask: {
             return this.setState({
-                  isDrawerOpen: false,
-                  isAddColumnDialogOpen: true,
-            })
-          }
+                isDrawerOpen: false,
+                isAddDialogFormOpen: true,
+            });
+        }
+        case sideMenuButtonsName.addColumn: {
+            return this.setState({
+                isDrawerOpen: false,
+                isAddColumnDialogOpen: true,
+            });
+        }
         }
     };
 
     onTaskClick = (id) => {
         this.setState({
             isDrawerOpen: false,
-            task: this.props.board.tasks.find(task => task.id === id),
+            task: this.props.board.tasks.find((task) => task.id === id),
         });
     };
 
     getIconByText = (text) => {
         switch (text) {
-            case sideMenuButtonsName.addTask: return AddIcon;
-            case sideMenuButtonsName.addColumn: return AddColumnIcon;
-            case sideMenuButtonsName.logout: return LogOutIcon;
+        case sideMenuButtonsName.addTask: return AddIcon;
+        case sideMenuButtonsName.addColumn: return AddColumnIcon;
+        case sideMenuButtonsName.logout: return LogOutIcon;
         }
     }
 
     renderTaskDetailsModal = () => (
         <TaskDetailsModal
             task={this.state.task}
-            handleClose={() => this.setState({task: null})}
+            handleClose={() => this.setState({ task: null })}
         />
     );
 
@@ -108,23 +108,23 @@ class TaskBoard extends PureComponent {
     renderAddDialogForm = () => (
         <AddDialogForm
             isOpen={this.state.isAddDialogFormOpen}
-            handleClose={() => this.setState({isAddDialogFormOpen: false})}
+            handleClose={() => this.setState({ isAddDialogFormOpen: false })}
         />
     );
 
     renderAddColumnDialog = () => (
         <AddColumnDialog
-          handleClose={() => this.setState({isAddColumnDialogOpen: false})}
-          onSubmitAddColumn={(columnName) => {
-            this.setState({isAddColumnDialogOpen: false});
-            this.props.addColumn(columnName);
-          }}
-          isOpen={this.state.isAddColumnDialogOpen}
+            handleClose={() => this.setState({ isAddColumnDialogOpen: false })}
+            onSubmitAddColumn={(columnName) => {
+                this.setState({ isAddColumnDialogOpen: false });
+                this.props.addColumn(columnName);
+            }}
+            isOpen={this.state.isAddColumnDialogOpen}
         />
     );
 
     renderPanel = (panelTitle) => {
-        const columnTasks = this.props.board.tasks.filter(task => task.priority === panelTitle);
+        const columnTasks = this.props.board.tasks.filter((task) => task.priority === panelTitle);
         return (
             <BoardColumn
                 tasks={columnTasks}
@@ -142,8 +142,7 @@ class TaskBoard extends PureComponent {
             <div className={classes.drawerHeader} />
             <div className={classes.content}>
                 {this.props.board.priorities
-                    .map(columnTitle => this.renderPanel(columnTitle))
-                }
+                    .map((columnTitle) => this.renderPanel(columnTitle))}
             </div>
         </main>
     );
@@ -191,10 +190,10 @@ class TaskBoard extends PureComponent {
     );
 
     render() {
-        const {classes, theme} = this.props;
-        const {isDrawerOpen, task} = this.state;
+        const { classes, theme } = this.props;
+        const { isDrawerOpen, task } = this.state;
         return (
-            <Fragment>
+            <>
                 <div className={classes.root}>
                     <CssBaseline />
                     {this.renderAppBar(classes, isDrawerOpen)}
@@ -205,24 +204,23 @@ class TaskBoard extends PureComponent {
                 {this.renderAddColumnDialog()}
                 {task
                     ? this.renderTaskDetailsModal()
-                    : null
-                }
-            </Fragment>
-        )
+                    : null}
+            </>
+        );
     }
 }
-const mapStateToProps = state => ({
-    board: state.boards.boardsList.find(board => state.boards.selectedBoardId === board.id),
+const mapStateToProps = (state) => ({
+    board: state.boards.boardsList.find((board) => state.boards.selectedBoardId === board.id),
 });
 
-const mapDispatchToProps = {addColumn};
+const mapDispatchToProps = { addColumn };
 
 const connectToState = connect(
     mapStateToProps,
-    mapDispatchToProps
+    mapDispatchToProps,
 );
 
 export default compose(
     withStyles(styles, { withTheme: true }),
-    connectToState
-)(TaskBoard)
+    connectToState,
+)(TaskBoard);

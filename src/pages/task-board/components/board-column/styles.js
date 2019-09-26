@@ -11,6 +11,6 @@ export default function (theme) {
             display: 'flex',
             flexDirection: 'column',
             paddingTop: theme.spacing.unit * 2,
-        }
-    }
+        },
+    };
 }

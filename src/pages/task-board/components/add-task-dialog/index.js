@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -14,13 +14,13 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
-import {addTask} from "../../actions";
+import { addTask } from '../../actions';
 
 const mock = {
     assignedTo: [
-      'Ilya Staver',
-      'Not Ilya staver',
-      'Kek',
+        'Ilya Staver',
+        'Not Ilya staver',
+        'Kek',
     ],
 };
 
@@ -32,13 +32,15 @@ class AddDialogForm extends PureComponent {
         assignedTo: '',
     };
 
-    handleFormInputChange = ({target: {value}}, type) => {
-        this.setState({[type]: value});
+    handleFormInputChange = ({ target: { value } }, type) => {
+        this.setState({ [type]: value });
     };
 
     handleAddTask = (event) => {
         event.preventDefault();
-        const {name, description, priority, assignedTo} = this.state;
+        const {
+            name, description, priority, assignedTo,
+        } = this.state;
         const task = {
             name,
             description,
@@ -80,7 +82,9 @@ class AddDialogForm extends PureComponent {
 
     render() {
         const { isOpen, handleClose, classes } = this.props;
-        const { name, description, assignedTo, priority } = this.state;
+        const {
+            name, description, assignedTo, priority,
+        } = this.state;
         return (
             <Dialog
                 open={isOpen}
@@ -147,7 +151,7 @@ class AddDialogForm extends PureComponent {
                     {this.renderDialogActionButtons(handleClose)}
                 </form>
             </Dialog>
-        )
+        );
     }
 }
 
@@ -156,16 +160,16 @@ AddDialogForm.propTypes = {
     isOpen: PropTypes.bool.isRequired,
     handleClose: PropTypes.func.isRequired,
     priorities: PropTypes.array,
-}
+};
 
 const stylesComponent = withStyles(styles)(AddDialogForm);
 export default connect(
-    state => ({
+    (state) => ({
         priorities: state.boards.boardsList
-            .find(board => board.id === state.boards.selectedBoardId)
+            .find((board) => board.id === state.boards.selectedBoardId)
             .priorities,
     }),
     {
         addTask,
-    }
+    },
 )(stylesComponent);

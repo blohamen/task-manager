@@ -3,6 +3,6 @@ export default function (theme) {
         dialogContent: {
             minWidth: 300,
             wordWrap: 'break-word',
-        }
-    }
+        },
+    };
 }

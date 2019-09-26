@@ -3,6 +3,6 @@ export default function (theme) {
         formControl: {
             minWidth: 100,
             marginRight: theme.spacing.unit * 3,
-        }
-    }
+        },
+    };
 }

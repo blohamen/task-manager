@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import TaskCard from '../task-card';
 import { withStyles } from '@material-ui/core/styles';
+import TaskCard from '../task-card';
 import styles from './styles';
 
 const renderTasks = (task, onTaskClick) => (
@@ -16,7 +16,9 @@ const renderTasks = (task, onTaskClick) => (
     />
 );
 
-function BoardColumn({title, classes, tasks, onTaskClick}) {
+function BoardColumn({
+    title, classes, tasks, onTaskClick,
+}) {
     return (
         <Paper className={classes.columnContainer} elevation={3}>
             <Typography
@@ -26,12 +28,12 @@ function BoardColumn({title, classes, tasks, onTaskClick}) {
             >
                 {title}
             </Typography>
-            <Divider/>
+            <Divider />
             <div className={classes.cardsContainer}>
                 {tasks.map((task) => renderTasks(task, onTaskClick))}
             </div>
         </Paper>
-    )
+    );
 }
 
 BoardColumn.propTypes = {
@@ -39,6 +41,6 @@ BoardColumn.propTypes = {
     classes: PropTypes.object.isRequired,
     tasks: PropTypes.array.isRequired,
     onTaskClick: PropTypes.func.isRequired,
-}
+};
 
 export default withStyles(styles)(BoardColumn);

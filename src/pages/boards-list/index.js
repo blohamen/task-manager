@@ -1,16 +1,16 @@
-import React, {PureComponent} from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import {compose} from "redux";
-import {connect} from "react-redux";
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import styles from './styles';
-import {Paper, Typography} from "@material-ui/core";
-import {selectBoard, fetchBoards} from "./actions";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import { Paper, Typography } from '@material-ui/core';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import classNames from 'classnames';
+import { selectBoard, fetchBoards } from './actions';
+import styles from './styles';
 
 class BoardsList extends PureComponent {
     static propTypes = {
@@ -22,12 +22,12 @@ class BoardsList extends PureComponent {
     };
 
     componentDidMount() {
-        const {fetchBoards} = this.props;
+        const { fetchBoards } = this.props;
         fetchBoards();
     }
 
     onBoardItemClick = (id) => {
-        const {selectBoard} = this.props;
+        const { selectBoard } = this.props;
         selectBoard(id);
     };
 
@@ -53,23 +53,23 @@ class BoardsList extends PureComponent {
     );
 
     render() {
-        const {classes, isBoardsFetching, boards} = this.props;
+        const { classes, isBoardsFetching, boards } = this.props;
         return (
             <div className={classNames(classes.root, isBoardsFetching && classes.spinner)}>
                 {(!isBoardsFetching && boards)
                     ? this.renderList(classes, boards)
-                    : <CircularProgress
-                        size={30}
-                        thickness={5}
-                    />
-                }
+                    : (
+                        <CircularProgress
+                            size={30}
+                            thickness={5}
+                        />
+                    )}
             </div>
-        )
+        );
     }
-
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     boards: state.boards.boardsList,
     isBoardsFetching: state.boards.isFetching,
 });
@@ -79,10 +79,10 @@ const connectToStore = connect(
     {
         selectBoard,
         fetchBoards,
-    }
+    },
 );
 
 export default compose(
     withStyles(styles),
-    connectToStore
+    connectToStore,
 )(BoardsList);

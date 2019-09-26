@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import {compose} from 'redux';
+import { compose } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
@@ -13,10 +13,10 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
-import {signIn} from "./store/actions";
+import { signIn } from './store/actions';
 import styles from './styles';
 
-function SignIn({classes, isInProgress, signIn}) {
+function SignIn({ classes, isInProgress, signIn }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -24,8 +24,8 @@ function SignIn({classes, isInProgress, signIn}) {
         event.preventDefault();
         signIn({
             email,
-            password
-        })
+            password,
+        });
     };
 
     const renderForm = () => (
@@ -36,7 +36,7 @@ function SignIn({classes, isInProgress, signIn}) {
             <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="email">Email Address</InputLabel>
                 <Input
-                    onChange={({target: {value}}) => setEmail(value)}
+                    onChange={({ target: { value } }) => setEmail(value)}
                     value={email}
                     id="email"
                     name="email"
@@ -47,7 +47,7 @@ function SignIn({classes, isInProgress, signIn}) {
             <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="password">Password</InputLabel>
                 <Input
-                    onChange={({target: {value}}) => setPassword(value)}
+                    onChange={({ target: { value } }) => setPassword(value)}
                     value={password}
                     name="password"
                     type="password"
@@ -78,15 +78,16 @@ function SignIn({classes, isInProgress, signIn}) {
                 </Typography>
                 {!isInProgress
                     ? renderForm()
-                    : <CircularProgress
-                        className={classes.spinner}
-                        size={30}
-                        thickness={5}
-                    />
-                }
+                    : (
+                        <CircularProgress
+                            className={classes.spinner}
+                            size={30}
+                            thickness={5}
+                        />
+                    )}
             </Paper>
         </main>
-    )
+    );
 }
 
 SignIn.propTypes = {
@@ -95,7 +96,7 @@ SignIn.propTypes = {
     signIn: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     isInProgress: state.app.isInProgress,
 });
 
@@ -105,11 +106,11 @@ const mapDispatchToProps = {
 
 const connectToStore = connect(
     mapStateToProps,
-    mapDispatchToProps
+    mapDispatchToProps,
 );
 
 export default compose(
     withRouter,
     connectToStore,
-    withStyles(styles)
-)(SignIn)
+    withStyles(styles),
+)(SignIn);
