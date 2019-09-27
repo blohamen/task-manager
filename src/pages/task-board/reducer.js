@@ -70,10 +70,10 @@ export default handleActions({
         ...state,
         isFetching: true,
     }),
-    [FETCH_BOARDS_SUCCESS]: (state, { payload }) => ({
+    [FETCH_BOARDS_SUCCESS]: (state, { payload = mock.boardsList }) => ({
         ...state,
         isFetching: false,
-        boardsList: mock.boardsList,
+        boardsList: payload,
     }),
     [SELECT_BOARD]: (state, { payload }) => ({
         ...state,

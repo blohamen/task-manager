@@ -1,4 +1,4 @@
-import { takeLatest, put, delay } from 'redux-saga/effects';
+import { takeLatest, put } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
 import { SIGN_IN, signInSuccess } from './pages/sign-in/store/actions';
 import {
@@ -12,6 +12,8 @@ import { FETCH_BOARDS, fetchBoardsSuccess, SELECT_BOARD } from './pages/boards-l
 // TODO: Divide into separates folders
 function* handleSignIn({ payload: { email, password } }) {
     yield put(signInSuccess({
+        email,
+        password,
         token: '123',
     }));
     yield put(push('/list'));
@@ -26,7 +28,7 @@ function* handleAddColumn({ payload }) {
 }
 
 function* handleFetchBoards({ payload }) {
-    yield put(fetchBoardsSuccess());
+    yield put(fetchBoardsSuccess(payload));
 }
 
 function* handleSelectBoard() {

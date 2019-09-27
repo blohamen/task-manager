@@ -1,4 +1,4 @@
-export default function (theme) {
+export default function () {
     return {
         dialogContent: {
             minWidth: 300,

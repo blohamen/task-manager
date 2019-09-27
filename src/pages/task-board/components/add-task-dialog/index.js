@@ -138,7 +138,10 @@ class AddDialogForm extends PureComponent {
                             <InputLabel htmlFor="assignedTo">Assigned to</InputLabel>
                             <Select
                                 value={assignedTo}
-                                onChange={(event) => this.handleFormInputChange(event, 'assignedTo')}
+                                onChange={(event) => this.handleFormInputChange(
+                                    event,
+                                    'assignedTo',
+                                )}
                                 inputProps={{
                                     name: 'assignedTo',
                                     id: 'assignedTo',
@@ -160,6 +163,7 @@ AddDialogForm.propTypes = {
     isOpen: PropTypes.bool.isRequired,
     handleClose: PropTypes.func.isRequired,
     priorities: PropTypes.array,
+    addTask: PropTypes.func.isRequired,
 };
 
 const stylesComponent = withStyles(styles)(AddDialogForm);

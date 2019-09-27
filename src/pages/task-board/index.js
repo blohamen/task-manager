@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -33,6 +33,8 @@ class TaskBoard extends PureComponent {
     static propTypes = {
         classes: PropTypes.object.isRequired,
         board: PropTypes.object.isRequired,
+        addColumn: PropTypes.func.isRequired,
+        theme: PropTypes.object.isRequired,
     };
 
     state = {
